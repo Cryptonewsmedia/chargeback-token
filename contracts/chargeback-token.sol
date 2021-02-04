@@ -180,9 +180,6 @@ contract ChargebackToken {
   enum TransferState {
     Open,
     Disputed,
-    SenderRemedyAvailable,
-    RecipientRemedyAvailable,
-    BothRemedyAvailable,
     Closed
   }
   struct TransferStatus {
