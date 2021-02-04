@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import { ContractUpgradeableSigner } from './contract-upgradeable-signer.sol';
 
-contract RecoverableWallet is ContractUpgradeableSigner {
+contract Wallet is ContractUpgradeableSigner {
   constructor () ContractUpgradeableSigner(msg.sender) public {
   }
   function notify(

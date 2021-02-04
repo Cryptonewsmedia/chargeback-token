@@ -1,7 +1,7 @@
 pragma solidity ^0.7.4;
 pragma experimental ABIEncoderV2;
 
-import { RecoverableWallet } from './recoverable-wallet.sol';
+import { Wallet } from './recoverable-wallet.sol';
 
 contract ChargebackToken {
 
@@ -62,10 +62,10 @@ contract ChargebackToken {
   {
     hashedRemedy = hashRemedy(remedy);
 
-    RecoverableWallet senderWallet = RecoverableWallet(remedy.check.senderAddress);
+    Wallet senderWallet = Wallet(remedy.check.senderAddress);
     senderWallet.consumeSignature(hashedRemedy);
 
-    RecoverableWallet recipientWallet = RecoverableWallet(remedy.check.recipientAddress);
+    Wallet recipientWallet = Wallet(remedy.check.recipientAddress);
     recipientWallet.consumeSignature(hashedRemedy);
     return hashedRemedy;
   }
@@ -155,12 +155,12 @@ contract ChargebackToken {
     require(!(check.blockNumberMax < block.number) || check.blockNumberMax == 0, "Block number too high to process check!");
     bytes32 hashedQuoteFromCheck = hashQuote(check);
 
-    RecoverableWallet senderWallet = RecoverableWallet(check.senderAddress);
+    Wallet senderWallet = Wallet(check.senderAddress);
     senderWallet.consumeSignature(hashedQuoteFromCheck);
 
     hashedCheck = hashCheck(check);
 
-    RecoverableWallet recipientWallet = RecoverableWallet(check.recipientAddress);
+    Wallet recipientWallet = Wallet(check.recipientAddress);
     recipientWallet.consumeSignature(hashedCheck);
     return hashedCheck;
   }
@@ -305,7 +305,7 @@ contract ChargebackToken {
     returns (bytes32)
   {
     bytes32 hashedCheck = validateCheck(check);
-    RecoverableWallet senderWallet = RecoverableWallet(check.senderAddress);
+    Wallet senderWallet = Wallet(check.senderAddress);
     require(senderWallet.consumeSignature(hashedCheck) == true, "Sender signature cannot be consumed");
     postTransfer(hashedCheck); // we can instead post the transfer to blockNumberMax + transferTime
     startTransfer(
@@ -346,7 +346,7 @@ contract ChargebackToken {
         );
       }
 
-      RecoverableWallet requesterWallet = RecoverableWallet(updateRequest.check.senderAddress);
+      Wallet requesterWallet = Wallet(updateRequest.check.senderAddress);
       requesterWallet.consumeSignature(hashedTransferStateUpdateRequest);
 
     } else if(updateRequest.requester == TransferStateUpdateRequestRequester.Recipient){
@@ -365,7 +365,7 @@ contract ChargebackToken {
         );
       }
 
-      RecoverableWallet requesterWallet = RecoverableWallet(updateRequest.check.recipientAddress);
+      Wallet requesterWallet = Wallet(updateRequest.check.recipientAddress);
       requesterWallet.consumeSignature(hashedTransferStateUpdateRequest);
 
     }
