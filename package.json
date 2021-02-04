@@ -1,0 +1,20 @@
+{
+  "name": "@inkibra/chargeback-token",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Implementation of Chargeback Tokens (EIP-1080)",
+  "main": "./build/index.js",
+  "types": "./index.ts",
+  "license": "SEE LICENSE",
+  "scripts": {
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "openzeppelin-solidity": "^2.3.0",
+    "truffle": "^5.0.36"
+  }
+}
