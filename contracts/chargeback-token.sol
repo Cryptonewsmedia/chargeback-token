@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import { RecoverableWallet } from './recoverable-wallet.sol';
 
-contract RecoverableToken {
+contract ChargebackToken {
 
   struct Remedy {
     uint fundsToSender;
@@ -271,7 +271,6 @@ contract RecoverableToken {
     TransferState updatedState
   )
     internal
-    onlyLinkedRecoverableTokenContract
     returns (bool)
   {
     if(updatedState == TransferState.Closed){
